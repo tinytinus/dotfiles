@@ -1,0 +1,21 @@
+shell-integration = zsh
+theme = Bliss
+font-family = Fira Code Nerd Font
+font-size = 10
+
+window-theme = ghostty
+
+window-padding-x = 0
+window-padding-y = 0
+window-padding-color = extend
+
+# for bspwm
+window-decoration = false
+
+mouse-hide-while-typing = true
+gtk-tabs-location = hidden
+
+background-opacity = 0.95 
+# 0.85
+background-blur = 20
+
