@@ -1,5 +1,7 @@
 local vim = vim
 
+vim.g.start_time = vim.fn.reltime()
+
 -- Bootstrap lazy.nvim
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not (vim.uv or vim.loop).fs_stat(lazypath) then
@@ -46,7 +48,7 @@ require("lazy").setup({
 			build = ":TSUpdate",
 			config = function()
 				require('nvim-treesitter.configs').setup {
-					ensure_installed = { "lua", "c", "python", "java", "c_sharp" },
+					ensure_installed = { "lua", "c"},
 					auto_install = true,
 					highlight = {
 						enable = true,
@@ -58,20 +60,6 @@ require("lazy").setup({
 			end,
 		},
 
-		{
-			'nvim-treesitter/nvim-treesitter-context',
-			dependencies = { 'nvim-treesitter/nvim-treesitter' },
-			config = function()
-				require('treesitter-context').setup()
-			end,
-		},
-		{
-			'lukas-reineke/indent-blankline.nvim',
-			main = 'ibl',
-			config = function()
-				require('ibl').setup()
-			end,
-		},
 		-- Autocomplete
 		{
 			'hrsh7th/nvim-cmp',
@@ -102,6 +90,10 @@ require("lazy").setup({
 						{ name = 'buffer' },
 						{ name = 'path' },
 					},
+					window = {
+					  completion = cmp.config.window.bordered(),
+  					documentation = cmp.config.window.bordered(),
+					}
 				})
 			end,
 		},
@@ -128,24 +120,6 @@ require("lazy").setup({
 				require('gitsigns').setup()
 			end,
 		},
-		-- Minimap
-		{
-			'Isrothy/neominimap.nvim',
-			version = "v3.*.*",
-			lazy = false,
-			dependencies = {
-				'nvim-treesitter/nvim-treesitter',
-			},
-			config = function()
-				require("minimap")
-			end,
-		},
-		-- Undotree
-		{
-			'mbbill/undotree',
-			config = function()
-			end,
-		},
 		-- Telescope
 		{
 			'nvim-telescope/telescope.nvim',
@@ -161,69 +135,12 @@ require("lazy").setup({
 					},
 				})
 			end,
-		}, -- Startpage
-		{
-			'goolord/alpha-nvim',
-			config = function()
-				local alpha = require('alpha')
-				local dashboard = require('alpha.themes.dashboard')
-
-				dashboard.section.header.val = {
-					[[      __                _            ]],
-					[[   /\ \ \___  ___/\   /(_)_ __ ___   ]],
-					[[  /  \/ / _ \/ _ \ \ / | | '_ ` _ \  ]],
-					[[ / /\  |  __| (_) \ V /| | | | | | | ]],
-					[[ \_\ \/ \___|\___/ \_/ |_|_| |_| |_| ]],
-					[[                                     ]],
-				}
-
-				dashboard.section.buttons.val = {
-					dashboard.button("e", "  New file", ":ene <BAR> startinsert <CR>"),
-					dashboard.button("f", "  Find file", ":Telescope find_files<CR>"),
-					dashboard.button("r", "  Recent", ":Telescope oldfiles<CR>"),
-					dashboard.button("w", "  Wiki", ":VimwikiIndex<CR>"),
-					dashboard.button("c", "  Config", ":e ~/.config/nvim/init.lua<CR>"),
-					dashboard.button("q", "  Quit", ":qa<CR>"),
-				}
-
-				alpha.setup(dashboard.config)
-			end,
 		},
 		-- Which-key
 		{
 			"folke/which-key.nvim",
 			config = function()
 				require("clues")
-			end,
-		},
-		-- StatusLine
-		{
-			'nvim-lualine/lualine.nvim',
-			dependencies = { 'nvim-tree/nvim-web-devicons' },
-			config = function()
-				require 'lualine'.setup({
-					options = {
-						theme = "gruvbox",
-						component_separators = { left = '', right = '' },
-						section_separators = { left = '', right = '' },
-						globalstatus = true,
-					},
-					sections = {
-						lualine_a = { 'mode' },
-						lualine_b = { 'branch', 'diff', 'diagnostics' },
-						lualine_c = { 'filename' },
-						lualine_x = { 'fileformat', 'filetype' },
-						lualine_y = { 'progress' },
-						lualine_z = { 'location' }
-					},
-				})
-			end
-		},
-		-- Icons
-		{
-			"nvim-tree/nvim-web-devicons",
-			config = function()
-				require 'nvim-web-devicons'.setup {}
 			end,
 		},
 		-- LSP
@@ -233,20 +150,23 @@ require("lazy").setup({
 				"williamboman/mason.nvim",
 				"williamboman/mason-lspconfig.nvim",
 			},
+    	opts = {
+      	diagnostics = {
+        	virtual_text = false,
+        	signs = false,
+      	},
+    	},
 			config = function()
 				require('mason').setup()
 				require('mason-lspconfig').setup({
-					ensure_installed = { "lua_ls", "pyright", "jdtls", "clangd", "omnisharp" },
+					ensure_installed = { "lua_ls", "clangd"},
 				})
 
 				local capabilities = require('cmp_nvim_lsp').default_capabilities()
 
 				local lspconfig = require('lspconfig')
 				lspconfig.lua_ls.setup({ capabilities = capabilities })
-				lspconfig.pyright.setup({ capabilities = capabilities })
-				lspconfig.jdtls.setup({ capabilities = capabilities })
 				lspconfig.clangd.setup({ capabilities = capabilities })
-				lspconfig.omnisharp.setup({ capabilities = capabilities })
 			end,
 		},
 		-- VimWiki

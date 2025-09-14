@@ -33,9 +33,6 @@ wk.register({
 			d = { "<cmd>bdelete<cr>", "Delete" },
 		},
 
-		u = { "<cmd>UndotreeToggle<cr>", "Undotree" },
-		m = { "<cmd>Neominimap Toggle<cr>", "Toggle minimap" },
-		
 		q = { ":x<CR>", "Quit" },
 		w = { ":w<CR>", "Write" },
 
@@ -113,13 +110,5 @@ wk.register({
 			n = { vim.lsp.buf.rename, "Rename" },
 		},
 
-		n = {
-			name = "Wiki",
-			w = { "<cmd>VimwikiIndex<cr>", "Open Index" },
-			i = { "<cmd>VimwikiDiaryIndex<cr>", "Diary Index" },
-			t = { "<cmd>VimwikiMakeDiaryNote<cr>", "Today's Note" },
-			y = { "<cmd>VimwikiMakeYesterdayDiaryNote<cr>", "Yesterday's Note" },
-			s = { "<cmd>VimwikiUISelect<cr>", "Select" },
-		}
 	}
 })

@@ -1,16 +1,10 @@
 format = """
-$all$fill$time
+$all$fill
 $character"""
 
 [fill]
 symbol = "-"
 style = "bold black"
-
-[time]
-disabled = false
-format = '[$time]($style) '
-style = 'bold yellow'
-time_format = '%H:%M'
 
 [line_break]
 disabled = true
