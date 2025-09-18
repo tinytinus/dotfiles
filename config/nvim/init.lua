@@ -25,6 +25,7 @@ vim.loader.enable()
 -- General config (before plugin setup)
 vim.opt.number = true
 vim.opt.scrolloff = 5
+vim.opt.sidescrolloff = 5
 vim.opt.tabstop = 2
 vim.opt.shiftwidth = 2
 vim.opt.wrap = false
@@ -39,6 +40,8 @@ vim.diagnostic.config({
 	underline = true,
 	update_in_insert = false,
 })
+
+vim.cmd('source ' .. vim.fn.stdpath('config') .. '/binds.vim')
 
 -- Setup lazy.nvim
 require("lazy").setup({
@@ -66,7 +69,6 @@ require("lazy").setup({
 			dependencies = {
 				'hrsh7th/cmp-nvim-lsp',
 				'hrsh7th/cmp-buffer',
-				'hrsh7th/cmp-path',
 				'L3MON4D3/LuaSnip',
 				'saadparwaiz1/cmp_luasnip',
 			},
@@ -134,13 +136,6 @@ require("lazy").setup({
 						sorting_strategy = "ascending",
 					},
 				})
-			end,
-		},
-		-- Which-key
-		{
-			"folke/which-key.nvim",
-			config = function()
-				require("clues")
 			end,
 		},
 		-- LSP
