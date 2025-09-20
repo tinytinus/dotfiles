@@ -86,8 +86,8 @@ require("lazy").setup({
   					filetypes = { 'c', 'cpp' },
   					capabilities = capabilities
 				}
-				vim.lsp.config.luals = {
-					cmd = { 'lua' },
+				vim.lsp.config.lua_ls = {
+					cmd = { 'lua-language-server' },
 					filetypes = { 'lua' },
 					capabilities = capabilities
 				}
