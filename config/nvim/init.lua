@@ -1,7 +1,5 @@
 local vim = vim
 
-vim.g.start_time = vim.fn.reltime()
-
 -- Bootstrap lazy.nvim
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not (vim.uv or vim.loop).fs_stat(lazypath) then
@@ -59,6 +57,39 @@ require("lazy").setup({
 					indent = {
 						enable = true,
 					},
+				}
+			end,
+		},
+		-- LSP
+		{
+			"neovim/nvim-lspconfig",
+			dependencies = {
+				"williamboman/mason.nvim",
+				"williamboman/mason-lspconfig.nvim",
+			},
+    	opts = {
+      	diagnostics = {
+        	virtual_text = false,
+        	signs = false,
+      	},
+    	},
+			config = function()
+				require('mason').setup()
+				require('mason-lspconfig').setup({
+					ensure_installed = { "lua_ls", "clangd"},
+				})
+
+				local capabilities = require('cmp_nvim_lsp').default_capabilities()
+
+				vim.lsp.config.clangd = {
+  					cmd = { 'clangd' },
+  					filetypes = { 'c', 'cpp' },
+  					capabilities = capabilities
+				}
+				vim.lsp.config.luals = {
+					cmd = { 'lua' },
+					filetypes = { 'lua' },
+					capabilities = capabilities
 				}
 			end,
 		},
@@ -136,32 +167,6 @@ require("lazy").setup({
 						sorting_strategy = "ascending",
 					},
 				})
-			end,
-		},
-		-- LSP
-		{
-			"neovim/nvim-lspconfig",
-			dependencies = {
-				"williamboman/mason.nvim",
-				"williamboman/mason-lspconfig.nvim",
-			},
-    	opts = {
-      	diagnostics = {
-        	virtual_text = false,
-        	signs = false,
-      	},
-    	},
-			config = function()
-				require('mason').setup()
-				require('mason-lspconfig').setup({
-					ensure_installed = { "lua_ls", "clangd"},
-				})
-
-				local capabilities = require('cmp_nvim_lsp').default_capabilities()
-
-				local lspconfig = require('lspconfig')
-				lspconfig.lua_ls.setup({ capabilities = capabilities })
-				lspconfig.clangd.setup({ capabilities = capabilities })
 			end,
 		},
 		-- VimWiki
