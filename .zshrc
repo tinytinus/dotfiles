@@ -23,6 +23,7 @@ setopt globdots
 setopt extended_glob
 setopt interactive_comments
 unsetopt prompt_sp 
+unsetopt beep
 
 source "$HOME/.local/share/zinit/zinit.git/zinit.zsh"
 
