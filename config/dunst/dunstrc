@@ -1,0 +1,45 @@
+[global]
+    origin = top-right
+    font = Ubuntu Mono Nerd Font 10
+    frame_width = 2
+    separator_height = 2
+    line_height = 3
+    markup = full
+    alignment = left
+    vertical_alignment = top
+    offset = 10x10
+    width = 300
+    height = (20, 500)
+    shrink = true
+    idle_threshold = 120
+    monitor = 0
+    follow = mouse
+    sticky_history = true
+    history_length = 20
+    show_age_threshold = 60
+    ellipsize = middle
+    ignore_newline = false
+    sort = true
+    indicate_hidden = true
+    transparency = 0
+    separator_color = "#98971a"
+    frame_color = "#d79921"
+    background = "#282828"
+    foreground = "#ebdbb2"
+    icon_position = left
+
+[urgency_low]
+    timeout = 5
+    background = "#282828"
+    foreground = "#ebdbb2"
+
+[urgency_normal]
+    timeout = 10
+    background = "#282828"
+    foreground = "#ebdbb2"
+
+[urgency_critical]
+    timeout = 0
+    background = "#cc241d"
+    foreground = "#bdae93"
+
