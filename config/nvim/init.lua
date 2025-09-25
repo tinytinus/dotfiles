@@ -49,7 +49,7 @@ require("lazy").setup({
 			build = ":TSUpdate",
 			config = function()
 				require('nvim-treesitter.configs').setup {
-					ensure_installed = { "lua", "c"},
+					ensure_installed = { "lua", "c" },
 					auto_install = true,
 					highlight = {
 						enable = true,
@@ -67,24 +67,24 @@ require("lazy").setup({
 				"williamboman/mason.nvim",
 				"williamboman/mason-lspconfig.nvim",
 			},
-    	opts = {
-      	diagnostics = {
-        	virtual_text = false,
-        	signs = false,
-      	},
-    	},
+			opts = {
+				diagnostics = {
+					virtual_text = false,
+					signs = false,
+				},
+			},
 			config = function()
 				require('mason').setup()
 				require('mason-lspconfig').setup({
-					ensure_installed = { "lua_ls", "clangd"},
+					ensure_installed = { "lua_ls", "clangd" },
 				})
 
 				local capabilities = require('cmp_nvim_lsp').default_capabilities()
 
 				vim.lsp.config.clangd = {
-  					cmd = { 'clangd' },
-  					filetypes = { 'c', 'cpp' },
-  					capabilities = capabilities
+					cmd = { 'clangd' },
+					filetypes = { 'c', 'cpp' },
+					capabilities = capabilities
 				}
 				vim.lsp.config.lua_ls = {
 					cmd = { 'lua-language-server' },
@@ -124,8 +124,8 @@ require("lazy").setup({
 						{ name = 'path' },
 					},
 					window = {
-					  completion = cmp.config.window.bordered(),
-  					documentation = cmp.config.window.bordered(),
+						completion = cmp.config.window.bordered(),
+						documentation = cmp.config.window.bordered(),
 					}
 				})
 			end,
@@ -175,7 +175,9 @@ require("lazy").setup({
 			config = function()
 				vim.g.vimwiki_list = {
 					{
-						path = "~/vimwiki/",
+						path = "~/Documents/notes/",
+						syntax = "default",
+						ext = ".md",
 					}
 				}
 				vim.g.vimwiki_global_ext = 0
