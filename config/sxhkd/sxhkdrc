@@ -1,6 +1,6 @@
 # Terminal
 super + Return
-    gnome-terminal
+    kitty
 
 # Program launcher
 super + space
@@ -18,10 +18,6 @@ super + Escape
 super + shift + r
     bspc wm -r
 
-# Quit bspwm
-super + shift + e
-    bspc quit
-
 # Focus/swap windows
 super + {h,j,k,l}
     bspc node -f {west,south,north,east}
@@ -32,6 +28,13 @@ super + shift + {h,j,k,l}
 # Resize windows
 super + alt + {h,j,k,l}
     bspc node -z {left -20 0,bottom 0 20,top 0 -20,right 20 0}
+
+super + shift + alt + {h, j, k, l}
+	bspc node -z {left 20 0, bottom 0 -20, top 0 20, right -20 0}
+
+# Move windows 
+super + {Left, Down, Up, Right}
+	bspc node -v {-20 0, 0 20, 0 -20, 20 0}
 
 # Toggle fullscreen
 super + f
@@ -45,6 +48,10 @@ super + s
 super + t 
 	bspc node -t tiled
 
+# Toggle pseudo_tiled
+super + shift + t 
+	bspc node -t pseudo_tiled
+
 # Switch desktops
 super + {1-9}
     bspc desktop -f '^{1-9}'
@@ -54,7 +61,7 @@ super + shift + {1-9}
     bspc node -d '^{1-9}'
 
 # Split horizontal/vertical
-super + {s,v}
+super + {c,v}
     bspc node -p {south,east}
 
 # Volume
