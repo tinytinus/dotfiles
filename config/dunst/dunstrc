@@ -7,7 +7,7 @@
     markup = full
     alignment = left
     vertical_alignment = top
-    offset = 10x10
+    offset = 20x20
     width = 300
     height = (20, 500)
     shrink = true

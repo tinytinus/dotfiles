@@ -1,17 +1,6 @@
-format = """
-$all$fill
-$character"""
-
-[fill]
-symbol = "-"
-style = "bold black"
-
-[line_break]
-disabled = true
-
 [character]
 success_symbol = "[>](bold green)"
-error_symbol = "[>](bold red)"
+error_symbol = "[x](bold red)"
 vimcmd_symbol = "[<](bold green)"
 
 [git_commit]

@@ -44,4 +44,4 @@ done
 setxkbmap -option caps:escape
 
 # wallpaper
-feh --bg-scale ~/Pictures/wallpapers/stairs.* &
+feh --bg-scale ~/Pictures/wallpapers/forest_mist.* &
