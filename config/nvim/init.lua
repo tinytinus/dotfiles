@@ -17,10 +17,8 @@ if not (vim.uv or vim.loop).fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
--- Enable vim.loader
 vim.loader.enable()
 
--- General config (before plugin setup)
 vim.opt.number = true
 vim.opt.scrolloff = 5
 vim.opt.sidescrolloff = 5
@@ -41,7 +39,6 @@ vim.diagnostic.config({
 
 vim.cmd('source ' .. vim.fn.stdpath('config') .. '/binds.vim')
 
--- Setup lazy.nvim
 require("lazy").setup({
 		-- Treesitter
 		{
@@ -93,7 +90,6 @@ require("lazy").setup({
 				}
 			end,
 		},
-
 		-- Autocomplete
 		{
 			'hrsh7th/nvim-cmp',
@@ -176,7 +172,7 @@ require("lazy").setup({
 				vim.g.vimwiki_list = {
 					{
 						path = "~/Documents/notes/",
-						syntax = "default",
+						syntax = "markdown",
 						ext = ".md",
 					}
 				}
@@ -190,7 +186,7 @@ require("lazy").setup({
 			config = function()
 				require("gruvbox").setup({
 					contrast = "",
-					transparent_mode = true,
+					transparent_mode = false,
 				})
 				vim.cmd.colorscheme("gruvbox")
 			end,
