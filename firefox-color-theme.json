@@ -1,0 +1,22 @@
+{
+  "manifest_version": 2,
+  "version": "1.0",
+  "name": "gruvbox dark",
+  "theme": {
+    "images": {},
+    "properties": {},
+    "colors": {
+      "toolbar": "rgb(40, 40, 40)",
+      "toolbar_text": "rgb(235, 219, 178)",
+      "frame": "rgb(29, 32, 33)",
+      "tab_background_text": "rgb(213, 196, 161)",
+      "toolbar_field": "rgb(60, 56, 54)",
+      "toolbar_field_text": "rgb(235, 219, 178)",
+      "tab_line": "rgb(254, 128, 25)",
+      "popup": "rgb(40, 40, 40)",
+      "popup_text": "rgb(235, 219, 178)",
+      "tab_selected": "rgb(60, 56, 54)",
+      "tab_loading": "rgb(254, 128, 25)"
+    }
+  }
+}
