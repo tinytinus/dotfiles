@@ -2,8 +2,12 @@
 super + Return
     kitty
 
-# Program launcher
+# Status
 super + space
+	~/bin/bspwm/toggle_status.sh
+
+# Program launcher
+super + f 
     rofi -show drun
 
 # Close window
@@ -80,6 +84,13 @@ XF86MonBrightnessUp
 
 XF86MonBrightnessDown
     brightnessctl set 5%-
+
+# Screenshot 
+super + p 
+    scrot ~/Pictures/Screenshots/screenshot-%Y-%m-%d-%H%M%S.png
+
+super + shift + p 
+    scrot -s ~/Pictures/Screenshots/screenshot-%Y-%m-%d-%H%M%S.png
 
 # Lock screen
 super + shift + x
