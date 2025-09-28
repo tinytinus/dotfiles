@@ -33,7 +33,7 @@ bspc config top_padding 0 # 14
 bspc config focus_follows_pointer true
 bspc config pointer_follows_focus true
 
-bspc rule -a floating-status state=floating sticky=on layer=above
+bspc rule -a floating-status state=floating sticky=on layer=above rectangle=320x140+20+20
 
 # touchpad improvements
 xinput list --name-only | grep -i touchpad | while read device; do

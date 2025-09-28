@@ -1,13 +1,13 @@
 # Terminal
 super + Return
-    kitty
+    alacritty
 
 # Status
 super + space
 	~/bin/bspwm/toggle_status.sh
 
 # Program launcher
-super + f 
+super + a
     rofi -show drun
 
 # Close window
