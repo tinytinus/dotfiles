@@ -1,5 +1,6 @@
 # Dotfiles
-my personal dotfiles for linux + my wallpaper collection
+My personal dotfiles for linux + my wallpaper collection.
+The 'config' directory is there for GNU stow 
 
 ## What i use:
 	- Editor: neovim

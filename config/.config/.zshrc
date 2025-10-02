@@ -30,13 +30,6 @@ source "$HOME/.local/share/zinit/zinit.git/zinit.zsh"
 zinit light zsh-users/zsh-syntax-highlighting
 zinit light zsh-users/zsh-autosuggestions
 
-goto() {
-  local directories=(~/Documents ~/dev ~/vimwiki)
-  local place=$(find "${directories[@]}" -type d -not -path '*/[@.]*' 2>/dev/null)
-	cd "$(echo $place | fzf --preview 'eza --tree {}')"
-}
-
-
 # !! Automated things below
 
 export PATH="$PATH:/home/bread/.local/bin"

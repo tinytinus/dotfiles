@@ -20,6 +20,7 @@ vim.opt.rtp:prepend(lazypath)
 vim.loader.enable()
 
 vim.opt.number = true
+vim.opt.relativenumber = true
 vim.opt.scrolloff = 5
 vim.opt.sidescrolloff = 5
 vim.opt.tabstop = 2
@@ -176,7 +177,7 @@ require("lazy").setup({
 						ext = ".md",
 					}
 				}
-				vim.g.vimwiki_global_ext = 0
+				vim.g.vimwiki_global_ext = 1
 			end,
 		},
 		-- Colorscheme
