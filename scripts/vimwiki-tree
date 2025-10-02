@@ -1,0 +1,66 @@
+#!/bin/bash
+
+if [ $# -ne 2 ]; then
+    echo "Usage: $0 <directory> <output_file>"
+    exit 1
+fi
+
+DIR="$1"
+OUTPUT="$2"
+
+if [ ! -d "$DIR" ]; then
+    echo "Error: Directory '$DIR' does not exist"
+    exit 1
+fi
+
+# Clear output file
+> "$OUTPUT"
+
+# Function to get directory depth
+get_depth() {
+    local path="$1"
+    local base_depth=$(echo "$DIR" | tr -cd '/' | wc -c)
+    local current_depth=$(echo "$path" | tr -cd '/' | wc -c)
+    echo $((current_depth - base_depth))
+}
+
+# Function to generate markdown headers based on depth
+get_header() {
+    local depth=$1
+    printf "%*s" $((depth + 1)) | tr ' ' '#'
+}
+
+# Process directory recursively
+process_dir() {
+    local current_dir="$1"
+    local depth=$(get_depth "$current_dir")
+    
+    # Print directory header with newline before (except for root)
+    if [ "$current_dir" != "$DIR" ]; then
+        local dirname=$(basename "$current_dir")
+        echo "" >> "$OUTPUT"
+        echo "$(get_header $depth) $dirname" >> "$OUTPUT"
+    else
+        local dirname=$(basename "$DIR")
+        echo "# $dirname" >> "$OUTPUT"
+    fi
+    
+    # List .wiki files in current directory
+    for file in "$current_dir"/*.wiki; do
+        if [ -f "$file" ]; then
+            local filename=$(basename "$file" .wiki)
+            local relative_path="${file#$DIR/}"
+            echo "* [[$relative_path|$filename]]" >> "$OUTPUT"
+        fi
+    done
+    
+    # Process subdirectories
+    for subdir in "$current_dir"/*; do
+        if [ -d "$subdir" ]; then
+            process_dir "$subdir"
+        fi
+    done
+}
+
+process_dir "$DIR"
+echo "Vimwiki tree generated in $OUTPUT"

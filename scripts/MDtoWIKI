@@ -1,0 +1,97 @@
+#!/bin/bash
+
+# Function to convert a single file
+convert_file() {
+    local file="$1"
+    local dir=$(dirname "$file")
+    local basename=$(basename "$file")
+    local name="${basename%.*}"  # Remove extension
+    local new_file="$dir/$name.wiki"
+    
+    echo "Converting: $file -> $new_file"
+    
+    # Create directory if it doesn't exist (shouldn't be needed for mv, but safe)
+    mkdir -p "$dir"
+    
+    # Move/rename the file
+    if mv "$file" "$new_file"; then
+        echo "  ✓ Success"
+    else
+        echo "  ✗ Failed to convert $file"
+        return 1
+    fi
+}
+
+# Function to revert a single file
+revert_file() {
+    local file="$1"
+    local dir=$(dirname "$file")
+    local basename=$(basename "$file")
+    local name="${basename%.*}"  # Remove extension
+    local new_file="$dir/$name.md"
+    
+    echo "Reverting: $file -> $new_file"
+    
+    if mv "$file" "$new_file"; then
+        echo "  ✓ Success"
+    else
+        echo "  ✗ Failed to revert $file"
+        return 1
+    fi
+}
+
+# Check for revert flag
+if [[ "$1" == "--revert" || "$1" == "-r" ]]; then
+    REVERT=true
+    shift  # Remove the flag from arguments
+else
+    REVERT=false
+fi
+
+# Show usage if no arguments
+if [[ $# -eq 0 ]]; then
+    echo "Usage: $0 [--revert|-r] <file|directory>..."
+    echo "  --revert, -r: Convert .wiki files back to .md"
+    echo ""
+    echo "Examples:"
+    echo "  $0 notes.md                    # Convert single file"
+    echo "  $0 ~/notes/                    # Convert all .md files in directory"
+    echo "  $0 --revert ~/notes/           # Convert all .wiki files back to .md"
+    exit 1
+fi
+
+# Process each argument
+for arg in "$@"; do
+    if [[ -d "$arg" ]]; then
+        echo "Processing directory: $arg"
+        if $REVERT; then
+            # Find .wiki files and revert to .md
+            find "$arg" -type f -name "*.wiki" | while read -r file; do
+                revert_file "$file"
+            done
+        else
+            # Find .md files and convert to .wiki
+            find "$arg" -type f -name "*.md" | while read -r file; do
+                convert_file "$file"
+            done
+        fi
+    elif [[ -f "$arg" ]]; then
+        if $REVERT; then
+            if [[ "$arg" == *.wiki ]]; then
+                revert_file "$arg"
+            else
+                echo "Warning: $arg is not a .wiki file (use without --revert for .md files)"
+            fi
+        else
+            if [[ "$arg" == *.md ]]; then
+                convert_file "$arg"
+            else
+                echo "Warning: $arg is not a .md file (use --revert for .wiki files)"
+            fi
+        fi
+    else
+        echo "Warning: $arg not found"
+    fi
+done
+
+echo "Done!"

@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+convert_file() {
+  local file="$1"
+  local name=$(basename "$file" | sed 's/\.[^.]*$//')
+  echo "Converting: $file -> $name.md"
+  pandoc "$file" -o "$name.md"
+}
+
+for arg in "$@"; do
+  if [[ -d "$arg" ]]; then
+    find "$arg" -type f \( -name "*.docx" -o -name "*.txt" -o -name "*.pdf" \) | while read -r file; do
+      convert_file "$file"
+    done
+  elif [[ -f "$arg" ]]; then
+    convert_file "$arg"
+  else
+    echo "Warning: $arg not found"
+  fi
+done
